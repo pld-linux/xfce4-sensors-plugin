@@ -16,21 +16,24 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 This plugin displays various hardware sensor values in the Xfce panel.
 
 %description -l pl
-Ta wtyczka wy¶wietla ró¿ne dane z czujników sprzêtowych na panelu Xfce.
+Ta wtyczka wy¶wietla ró¿ne dane z czujników sprzêtowych na panelu
+Xfce.
 
 %prep
 %setup -q
 
 %build
-%configure
+%configure \
+	--disable-static
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/xfce4/panel-plugins/*.{a,la}
+rm -f $RPM_BUILD_ROOT%{_libdir}/xfce4/panel-plugins/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
