@@ -1,14 +1,20 @@
 Summary:	Sensors plugin for the Xfce panel
 Summary(pl):	Wtyczka sensorów dla panelu Xfce
 Name:		xfce4-sensors-plugin
-Version:	0.3.0
-Release:	2
+Version:	0.7.0
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://download.berlios.de/xfce-goodies/%{name}-%{version}.tar.bz2
-# Source0-md5:	3eeaa4973c9a855d75f5e58fcf3f1991
+# Source0-md5:	10399ab7351c60e9e46e4d4375250157
 URL:		http://xfce-goodies.berlios.de/
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	gettext-devel
+BuildRequires:	libtool
 BuildRequires:	lm_sensors-devel >= 2.8
+BuildRequires:	pkgconfig
+BuildRequires:	xfce4-dev-tools
 BuildRequires:	xfce4-panel-devel >= 4.0.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -23,6 +29,11 @@ Xfce.
 %setup -q
 
 %build
+%{__libtoolize}
+%{__aclocal} -I %{_datadir}/xfce4/dev-tools/m4macros
+%{__autoheader}
+%{__automake}
+%{__autoconf}
 %configure \
 	--disable-static
 %{__make}
@@ -35,10 +46,12 @@ rm -rf $RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/xfce4/panel-plugins/*.la
 
+%find_lang %{name}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README TODO
 %attr(755,root,root) %{_libdir}/xfce4/panel-plugins/*.so
