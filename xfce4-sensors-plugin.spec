@@ -5,9 +5,9 @@ Version:	0.7.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://download.berlios.de/xfce-goodies/%{name}-%{version}.tar.bz2
+Source0:	http://goodies.xfce.org/releases/xfce4-sensors-plugin/%{name}-%{version}.tar.bz2
 # Source0-md5:	10399ab7351c60e9e46e4d4375250157
-URL:		http://xfce-goodies.berlios.de/
+URL:		http://goodies.xfce.org/projects/panel-plugins/xfce4-sensors-plugin
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
