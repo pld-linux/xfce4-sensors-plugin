@@ -14,8 +14,11 @@ BuildRequires:	gettext-devel
 BuildRequires:	libtool
 BuildRequires:	lm_sensors-devel >= 2.8
 BuildRequires:	pkgconfig
+BuildRequires:	rpmbuild(macros) >= 1.311
 BuildRequires:	xfce4-dev-tools >= 4.3.90.2
 BuildRequires:	xfce4-panel-devel >= 4.3.90.1
+Requires(post,postun):	gtk+2
+Requires(post,postun):	hicolor-icon-theme
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -50,6 +53,12 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/xfce4/panel-plugins/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post
+%update_icon_cache hicolor
+
+%postun
+%update_icon_cache hicolor
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
