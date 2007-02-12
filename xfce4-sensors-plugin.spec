@@ -1,5 +1,5 @@
 Summary:	Sensors plugin for the Xfce panel
-Summary(pl):	Wtyczka sensor�w dla panelu Xfce
+Summary(pl.UTF-8):   Wtyczka sensorów dla panelu Xfce
 Name:		xfce4-sensors-plugin
 Version:	0.10.0
 Release:	1
@@ -24,8 +24,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 This plugin displays various hardware sensor values in the Xfce panel.
 
-%description -l pl
-Ta wtyczka wy�wietla r�ne dane z czujnik�w sprz�towych na panelu
+%description -l pl.UTF-8
+Ta wtyczka wyświetla różne dane z czujników sprzętowych na panelu
 Xfce.
 
 %prep
