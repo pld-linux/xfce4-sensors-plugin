@@ -11,6 +11,7 @@ URL:		http://goodies.xfce.org/projects/panel-plugins/xfce4-sensors-plugin
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
+BuildRequires:	intltool
 BuildRequires:	libtool
 BuildRequires:	lm_sensors-devel >= 2.8
 BuildRequires:	pkgconfig
