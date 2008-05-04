@@ -1,13 +1,15 @@
 Summary:	Sensors plugin for the Xfce panel
 Summary(pl.UTF-8):	Wtyczka sensorów dla panelu Xfce
 Name:		xfce4-sensors-plugin
-Version:	0.10.0
-Release:	3
+Version:	0.10.99.3
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://goodies.xfce.org/releases/xfce4-sensors-plugin/%{name}-%{version}.tar.bz2
-# Source0-md5:	fa431e2b6bb0dd151047e05f7383a844
+# Source0-md5:	6e3b521453d42e1cf0fa970eee17a825
 URL:		http://goodies.xfce.org/projects/panel-plugins/xfce4-sensors-plugin
+Patch0:		%{name}-configure_fix.patch
+Patch1:		%{name}-lm_sensors_3.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
@@ -31,6 +33,8 @@ Xfce.
 
 %prep
 %setup -q
+%patch0 -p0
+%patch1 -p1
 
 %build
 %{__intltoolize}
