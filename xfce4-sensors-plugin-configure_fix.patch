@@ -1,0 +1,11 @@
+--- configure.in.orig	2007-12-11 22:20:58.000000000 +0100
++++ configure.in	2008-05-03 23:31:21.204612165 +0200
+@@ -93,7 +93,7 @@
+         HDDTEMP=$withval
+     ], [
+         AC_MSG_CHECKING([for hddtemp path])
+-        HDDTEMP=([`whereis -b hddtemp | sed 's/.*\ \(\/[a-zA-Z0-9\-\/.]*bin[A-Za-z0-9\-\/.]*hddtemp\).*/\1/'`])
++        HDDTEMP=[`whereis -b hddtemp | sed 's/.*\ \(\/[a-zA-Z0-9\-\/.]*bin[A-Za-z0-9\-\/.]*hddtemp\).*/\1/']`
+ 
+         AC_MSG_RESULT([$HDDTEMP])
+     ])
