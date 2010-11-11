@@ -6,6 +6,27 @@
          AC_MSG_CHECKING([for hddtemp path])
 -        HDDTEMP=([`whereis -b hddtemp | sed 's/.*\ \(\/[a-zA-Z0-9\-\/.]*bin[A-Za-z0-9\-\/.]*hddtemp\).*/\1/'`])
 +        HDDTEMP=[`whereis -b hddtemp | sed 's/.*\ \(\/[a-zA-Z0-9\-\/.]*bin[A-Za-z0-9\-\/.]*hddtemp\).*/\1/']`
- 
          AC_MSG_RESULT([$HDDTEMP])
      ])
+ 
+@@ -139,9 +139,9 @@
+         NETCAT_PATH=$withval
+     ], [
+         AC_MSG_CHECKING([for netcat path])
+-        NETCAT_PATH=([`whereis -b netcat | sed 's/.*\ \(\/[a-zA-Z0-9\-\/.]*bin[A-Za-z0-9\-\/.]*netcat\).*/\1/'`])
++        NETCAT_PATH=[`whereis -b netcat | sed 's/.*\ \(\/[a-zA-Z0-9\-\/.]*bin[A-Za-z0-9\-\/.]*netcat\).*/\1/'`]
+         if test x"$NETCAT_PATH" = x"netcat:"; then
+-            NETCAT_PATH=([`whereis -b nc | sed 's/.*\ \(\/[a-zA-Z0-9\-\/.]*bin[A-Za-z0-9\-\/.]*nc\).*/\1/'`])
++            NETCAT_PATH=[`whereis -b nc | sed 's/.*\ \(\/[a-zA-Z0-9\-\/.]*bin[A-Za-z0-9\-\/.]*nc\).*/\1/'`]
+         fi;
+ 
+         AC_MSG_RESULT([$NETCAT_PATH])
+@@ -151,7 +151,7 @@
+     HDDTEMP_PORT=7634
+ 
+     AC_MSG_CHECKING([for hddtemp being queryable via netcat])
+-    NETCAT_RUN=([`"$NETCAT_PATH" "$NETCAT_HOST" "$HDDTEMP_PORT" 2> /dev/null`])
++    NETCAT_RUN=[`"$NETCAT_PATH" "$NETCAT_HOST" "$HDDTEMP_PORT" 2> /dev/null`]
+     AC_MSG_RESULT([$NETCAT_RUN])
+     if test x"$NETCAT_RUN" = x""; then
+         enable_netcat=no
