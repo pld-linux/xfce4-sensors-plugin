@@ -2,13 +2,14 @@ Summary:	Sensors plugin for the Xfce panel
 Summary(pl.UTF-8):	Wtyczka sensorów dla panelu Xfce
 Name:		xfce4-sensors-plugin
 Version:	1.0.0
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://archive.xfce.org/src/panel-plugins/xfce4-sensors-plugin/1.0/%{name}-%{version}.tar.bz2
 # Source0-md5:	74d83628246536d575f954c76724982b
 URL:		http://goodies.xfce.org/projects/panel-plugins/xfce4-sensors-plugin
 Patch0:		%{name}-configure_fix.patch
+Patch1:		includes.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
@@ -16,11 +17,11 @@ BuildRequires:	intltool
 BuildRequires:	libtool
 BuildRequires:	lm_sensors-devel >= 2.8
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(macros) >= 1.311
+BuildRequires:	rpmbuild(macros) >= 1.601
 BuildRequires:	xfce4-dev-tools >= 4.3.90.2
 BuildRequires:	xfce4-panel-devel >= 4.3.90.1
-Requires(post,postun):	gtk-update-icon-cache
-Requires(post,postun):	hicolor-icon-theme
+Requires:	gtk-update-icon-cache
+Requires:	hicolor-icon-theme
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		skip_post_check_so	libxfce4sensors.so.*
@@ -35,6 +36,7 @@ Xfce.
 %prep
 %setup -q
 %patch0 -p0
+%patch1 -p1
 
 %build
 %{__intltoolize}
