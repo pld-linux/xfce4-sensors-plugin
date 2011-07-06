@@ -1,69 +1,5 @@
-diff -ur xfce4-sensors-plugin-1.0.0-orig/configure.in xfce4-sensors-plugin-1.0.0/configure.in
---- xfce4-sensors-plugin-1.0.0-orig/configure.in	2011-03-01 11:20:41.483067640 +0100
-+++ xfce4-sensors-plugin-1.0.0/configure.in	2011-03-01 13:28:53.982063513 +0100
-@@ -304,7 +304,7 @@
- dnl *** Check for Xfce packages ***
- dnl **************************************
- XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [4.4.0])
--XDT_CHECK_PACKAGE([LIBXFCEGUI4], [libxfcegui4-1.0], [4.4.0])
-+XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-1], [4.8.0])
- 
- dnl configure the panel plugin
- XDT_CHECK_PACKAGE([LIBXFCE4PANEL], [libxfce4panel-1.0], [4.4.0])
-diff -ur xfce4-sensors-plugin-1.0.0-orig/lib/configuration.c xfce4-sensors-plugin-1.0.0/lib/configuration.c
---- xfce4-sensors-plugin-1.0.0-orig/lib/configuration.c	2010-03-28 20:15:24.000000000 +0200
-+++ xfce4-sensors-plugin-1.0.0/lib/configuration.c	2011-03-01 13:28:53.983063513 +0100
-@@ -30,7 +30,7 @@
- 
- /* Xfce includes */
- #include <libxfce4util/libxfce4util.h>
--#include <libxfce4panel/xfce-panel-plugin.h>
-+#include <libxfce4panel/libxfce4panel.h>
- 
- /* Package includes */
- #include <configuration.h>
-diff -ur xfce4-sensors-plugin-1.0.0-orig/lib/Makefile.am xfce4-sensors-plugin-1.0.0/lib/Makefile.am
---- xfce4-sensors-plugin-1.0.0-orig/lib/Makefile.am	2010-03-27 16:11:48.000000000 +0100
-+++ xfce4-sensors-plugin-1.0.0/lib/Makefile.am	2011-03-01 13:28:53.983063513 +0100
-@@ -42,7 +42,7 @@
- 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"							\
- 	@GTK_CFLAGS@													\
- 	@GLIB_CFLAGS@													\
--	@LIBXFCEGUI4_CFLAGS@											\
-+	@LIBXFCE4UI_CFLAGS@											\
- 	@LIBXFCE4UTIL_CFLAGS@											\
- 	@LIBXFCE4PANEL_CFLAGS@											\
- 	@LIBSENSORS_CFLAGS@	
-@@ -54,7 +54,7 @@
- # @GTK_CFLAGS@ 														\
- # @GLIB_CFLAGS@ 													\
- #	@LIBXFCE4UTIL_CFLAGS@											\
--#	@LIBXFCEGUI4_CFLAGS@
-+#	@LIBXFCE4UI_CFLAGS@
- 
- libxfce4sensors_la_LDFLAGS = 										\
- 	-export-dynamic													\
-@@ -71,7 +71,7 @@
- 	@GTK_LIBS@														\
- 	@GLIB_LIBS@														\
- 	@LIBXFCE4UTIL_LIBS@												\
--	@LIBXFCEGUI4_LIBS@												\
-+	@LIBXFCE4UI_LIBS@												\
- 	@LIBXFCE4PANEL_LIBS@											\
- 	@LIBSENSORS_LDFLAGS@
- 
-@@ -82,7 +82,7 @@
- # @GTK_LIBS@ 														\
- #	@GLIB_LIBS@ 													\
- #	@LIBXFCE4UTIL_LIBS@												\
--#	@LIBXFCEGUI4_LIBS@
-+#	@LIBXFCE4UI_LIBS@
- 
- #@SOLLIBS@
- 
-diff -ur xfce4-sensors-plugin-1.0.0-orig/lib/sensors-interface.c xfce4-sensors-plugin-1.0.0/lib/sensors-interface.c
---- xfce4-sensors-plugin-1.0.0-orig/lib/sensors-interface.c	2010-03-27 16:11:48.000000000 +0100
-+++ xfce4-sensors-plugin-1.0.0/lib/sensors-interface.c	2011-03-01 13:28:53.987063513 +0100
+--- xfce4-sensors-plugin-1.2.0/lib/sensors-interface.c~	2011-05-09 18:22:12.000000000 +0200
++++ xfce4-sensors-plugin-1.2.0/lib/sensors-interface.c	2011-07-06 11:49:13.878027422 +0200
 @@ -34,7 +34,7 @@
  #include <gtk/gtk.h>
  
@@ -73,75 +9,19 @@ diff -ur xfce4-sensors-plugin-1.0.0-orig/lib/sensors-interface.c xfce4-sensors-p
  
  /* Package includes */
  #include <sensors-interface-common.h>
-diff -ur xfce4-sensors-plugin-1.0.0-orig/lib/sensors-interface-common.c xfce4-sensors-plugin-1.0.0/lib/sensors-interface-common.c
---- xfce4-sensors-plugin-1.0.0-orig/lib/sensors-interface-common.c	2010-03-27 16:11:48.000000000 +0100
-+++ xfce4-sensors-plugin-1.0.0/lib/sensors-interface-common.c	2011-03-01 13:28:53.988063513 +0100
-@@ -23,9 +23,8 @@
- #endif
- 
- /* Xfce includes */
--// #include <libxfce4panel/xfce-panel-enums.h>
- #include <gtk/gtk.h>
+--- xfce4-sensors-plugin-1.2.0/panel-plugin/sensors-plugin.c~	2011-05-05 16:32:20.000000000 +0200
++++ xfce4-sensors-plugin-1.2.0/panel-plugin/sensors-plugin.c	2011-07-06 11:50:56.166527400 +0200
+@@ -42,7 +42,7 @@
+ #include <libxfce4util/libxfce4util.h>
+ //#include <libxfcegui4/libxfcegui4.h>
+ #include <libxfce4ui/libxfce4ui.h>
 -#include <libxfce4panel/xfce-panel-plugin.h>
 +#include <libxfce4panel/libxfce4panel.h>
  
- /* Local/package includes */
+ /* Package includes */
  #include <configuration.h>
-diff -ur xfce4-sensors-plugin-1.0.0-orig/panel-plugin/Makefile.am xfce4-sensors-plugin-1.0.0/panel-plugin/Makefile.am
---- xfce4-sensors-plugin-1.0.0-orig/panel-plugin/Makefile.am	2009-11-06 12:02:11.000000000 +0100
-+++ xfce4-sensors-plugin-1.0.0/panel-plugin/Makefile.am	2011-03-01 13:28:53.994063513 +0100
-@@ -20,6 +20,7 @@
- 
- xfce4_sensors_plugin_CFLAGS = \
- 	@LIBXFCE4PANEL_CFLAGS@										   \
-+	@LIBXFCE4UI_CFLAGS@										   \
- 	@PLATFORM_CFLAGS@												\
- 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\"							\
- 	@LIBSENSORS_CFLAGS@
-@@ -30,6 +31,7 @@
- xfce4_sensors_plugin_LDFLAGS = 								\
- 	$(top_builddir)/lib/libxfce4sensors.la
- 	@LIBXFCE4PANEL_LIBS@											 \
-+	@LIBXFCE4UI_LIBS@											 \
- 	@SOLLIBS@														\
- 	@LIBSENSORS_LDFLAGS@
- 
-diff -ur xfce4-sensors-plugin-1.0.0-orig/panel-plugin/sensors-plugin.c xfce4-sensors-plugin-1.0.0/panel-plugin/sensors-plugin.c
---- xfce4-sensors-plugin-1.0.0-orig/panel-plugin/sensors-plugin.c	2011-03-01 11:20:41.485067641 +0100
-+++ xfce4-sensors-plugin-1.0.0/panel-plugin/sensors-plugin.c	2011-03-01 13:29:31.784063500 +0100
-@@ -40,7 +40,7 @@
- 
- /* Xfce includes */
- #include <libxfce4util/libxfce4util.h>
--#include <libxfcegui4/libxfcegui4.h>
-+#include <libxfce4ui/libxfce4ui.h>
- #include <libxfce4panel/libxfce4panel.h>
- 
- /* Package includes */
-@@ -1007,7 +1007,7 @@
- 
-         g_return_val_if_fail ( sensors->exec_command, FALSE);
- 
--        xfce_exec (sensors->command_name, FALSE, FALSE, NULL);
-+        xfce_spawn_command_line_on_screen(gdk_screen_get_default(), sensors->command_name, FALSE, FALSE, NULL);
- 
-         TRACE ("leaves execute_command with TRUE");
- 
-diff -ur xfce4-sensors-plugin-1.0.0-orig/src/actions.c xfce4-sensors-plugin-1.0.0/src/actions.c
---- xfce4-sensors-plugin-1.0.0-orig/src/actions.c	2010-03-27 16:11:48.000000000 +0100
-+++ xfce4-sensors-plugin-1.0.0/src/actions.c	2011-03-01 13:28:53.989063513 +0100
-@@ -28,7 +28,7 @@
- #include <gtk/gtk.h>
- 
- /* Xfce includes */
--#include <libxfcegui4/libxfcegui4.h>
-+#include <libxfce4ui/libxfce4ui.h>
- 
- /* Package includes */
- #include <middlelayer.h>
-diff -ur xfce4-sensors-plugin-1.0.0-orig/src/callbacks.c xfce4-sensors-plugin-1.0.0/src/callbacks.c
---- xfce4-sensors-plugin-1.0.0-orig/src/callbacks.c	2010-03-28 20:25:46.000000000 +0200
-+++ xfce4-sensors-plugin-1.0.0/src/callbacks.c	2011-03-01 13:28:53.990063513 +0100
+--- xfce4-sensors-plugin-1.2.0/src/callbacks.c~	2011-03-25 22:08:47.000000000 +0100
++++ xfce4-sensors-plugin-1.2.0/src/callbacks.c	2011-07-06 11:51:54.204527418 +0200
 @@ -27,7 +27,7 @@
  #include <stdlib.h>
  
@@ -151,9 +31,19 @@ diff -ur xfce4-sensors-plugin-1.0.0-orig/src/callbacks.c xfce4-sensors-plugin-1.
  
  /* Package includes */
  #include <sensors-interface.h>
-diff -ur xfce4-sensors-plugin-1.0.0-orig/src/interface.c xfce4-sensors-plugin-1.0.0/src/interface.c
---- xfce4-sensors-plugin-1.0.0-orig/src/interface.c	2010-03-27 21:01:21.000000000 +0100
-+++ xfce4-sensors-plugin-1.0.0/src/interface.c	2011-03-01 13:28:53.991063513 +0100
+--- xfce4-sensors-plugin-1.2.0/src/actions.c~	2011-03-25 22:08:47.000000000 +0100
++++ xfce4-sensors-plugin-1.2.0/src/actions.c	2011-07-06 11:52:56.042527552 +0200
+@@ -28,7 +28,7 @@
+ #include <gtk/gtk.h>
+ 
+ /* Xfce includes */
+-#include <libxfcegui4/libxfcegui4.h>
++#include <libxfce4ui/libxfce4ui.h>
+ 
+ /* Package includes */
+ #include <middlelayer.h>
+--- xfce4-sensors-plugin-1.2.0/src/interface.c~	2011-03-25 22:08:47.000000000 +0100
++++ xfce4-sensors-plugin-1.2.0/src/interface.c	2011-07-06 11:53:30.487027419 +0200
 @@ -24,7 +24,7 @@
  #endif
  
@@ -163,24 +53,3 @@ diff -ur xfce4-sensors-plugin-1.0.0-orig/src/interface.c xfce4-sensors-plugin-1.
  
  /* Package includes */
  #include <cpu.h>
-diff -ur xfce4-sensors-plugin-1.0.0-orig/src/Makefile.am xfce4-sensors-plugin-1.0.0/src/Makefile.am
---- xfce4-sensors-plugin-1.0.0-orig/src/Makefile.am	2011-03-01 11:20:41.486067640 +0100
-+++ xfce4-sensors-plugin-1.0.0/src/Makefile.am	2011-03-01 13:28:53.991063513 +0100
-@@ -27,7 +27,7 @@
- 	-DPACKAGE_LOCALE_DIR=\"$(localedir)\" \
- 	@LIBSENSORS_CFLAGS@	\
- 	@LIBXFCE4UTIL_CFLAGS@ \
--	@LIBXFCEGUI4_CFLAGS@ \
-+	@LIBXFCE4UI_CFLAGS@ \
- 	@LIBXFCE4PANEL_CFLAGS@
- 
- # @GTK_CFLAGS@ 	\
-@@ -42,7 +42,7 @@
- 	$(top_builddir)/lib/libxfce4sensors.la \
- 	@LIBSENSORS_LDFLAGS@ \
- 	@LIBXFCE4UTIL_LIBS@	\
--	@LIBXFCEGUI4_LIBS@ 
-+	@LIBXFCE4UI_LIBS@ 
- 
- # @GTK_LIBS@ \
- # @GLIB_LIBS@ \
