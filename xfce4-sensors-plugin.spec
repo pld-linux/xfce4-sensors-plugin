@@ -2,12 +2,12 @@
 Summary:	Sensors plugin for the Xfce panel
 Summary(pl.UTF-8):	Wtyczka sensorów dla panelu Xfce
 Name:		xfce4-sensors-plugin
-Version:	1.2.6
-Release:	2
+Version:	1.3.92
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
-Source0:	http://archive.xfce.org/src/panel-plugins/xfce4-sensors-plugin/1.2/%{name}-%{version}.tar.bz2
-# Source0-md5:	33c2e343c1224d9c4ae757a70cbe08eb
+Source0:	http://archive.xfce.org/src/panel-plugins/xfce4-sensors-plugin/1.3/%{name}-%{version}.tar.bz2
+# Source0-md5:	7327c4c316ebd5d93665e77b432b8d89
 URL:		http://goodies.xfce.org/projects/panel-plugins/xfce4-sensors-plugin
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -18,8 +18,8 @@ BuildRequires:	libxfce4ui-devel
 BuildRequires:	lm_sensors-devel >= 2.8
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.601
-BuildRequires:	xfce4-dev-tools >= 4.12.0
-BuildRequires:	xfce4-panel-devel >= 4.12.0
+BuildRequires:	xfce4-dev-tools >= 4.14.0
+BuildRequires:	xfce4-panel-devel >= 4.14.0
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -57,7 +57,8 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/xfce4/modules/*.la
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/ur_PK
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ur_PK
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/pt_BR_
 
 %find_lang %{name}
 
@@ -75,7 +76,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog README TODO
 %attr(755,root,root) %{_bindir}/xfce4-sensors
 %attr(755,root,root) %{_libdir}/xfce4/modules/libxfce4sensors.so*
-%attr(755,root,root) %{_libdir}/xfce4/panel-plugins/*
+%attr(755,root,root) %{_libdir}/xfce4/panel/plugins/libxfce4-sensors-plugin.so
 %{_iconsdir}/hicolor/*/*/*
-%{_datadir}/xfce4/panel-plugins/*.desktop
+%{_datadir}/xfce4/panel/plugins/xfce4-sensors-plugin.css
+%{_datadir}/xfce4/panel/plugins/xfce4-sensors-plugin.desktop
 %{_desktopdir}/xfce4-sensors.desktop
+%{_mandir}/man1/xfce4-sensors.1*
